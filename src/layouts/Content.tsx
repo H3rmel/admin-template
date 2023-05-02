@@ -5,5 +5,5 @@ interface ContentProps {
 }
 
 export function Content({ children }: ContentProps) {
-  return <section className="flex flex-col mt-7">{children}</section>;
+  return <section className="layout-content">{children}</section>;
 }

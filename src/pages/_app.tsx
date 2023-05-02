@@ -3,6 +3,8 @@ import "@/styles/globals.css";
 
 import { Inter } from "next/font/google";
 
+import { AppProvider } from "@/data/contexts/AppContext";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -10,8 +12,10 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className={`${inter.variable} font-sans`}>
-      <Component {...pageProps} />
-    </div>
+    <AppProvider>
+      <div className={`${inter.variable} font-sans`}>
+        <Component {...pageProps} />
+      </div>
+    </AppProvider>
   );
 }

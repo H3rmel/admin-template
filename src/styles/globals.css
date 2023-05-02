@@ -2,23 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-light-500 text-dark-500 dark:bg-dark-500 dark:text-light-500;
-  }
-}
-
 @layer components {
   .layout-main {
-    @apply flex flex-col w-screen h-screen md:flex-row; 
+    @apply flex flex-col w-screen h-screen md:flex-row;
   }
 
   .layout-aside {
-    @apply flex justify-center items-center gap-4 px-4 py-8 md:flex-col md:justify-start;
+    @apply flex justify-center items-center gap-4 px-4 py-8 bg-dark-500 text-light-500 dark:bg-primary-500 md:flex-col md:justify-start;
   }
 
   .layout-logo {
-    @apply grid place-items-center bg-gradient-to-br from-primary-500 to-accent-500 h-16 w-16 rounded-xl;
+    @apply grid place-items-center;
   }
 
   .layout-aside-links {
@@ -26,7 +20,7 @@
   }
 
   .layout-aside-link {
-    @apply inline-flex items-center gap-2 w-full p-2 rounded-md duration-300 hover:bg-light-800 hover:dark:bg-dark-800 md:px-3 md:py-2;
+    @apply inline-flex items-center gap-2 w-full p-2 rounded-md duration-300 hover:bg-dark-700 hover:dark:bg-primary-700 md:px-3 md:py-2;
   }
 
   .layout-aside-link span {
@@ -34,6 +28,18 @@
   }
 
   .layout-section {
-    @apply flex flex-col w-full h-full p-8 bg-light-600 dark:bg-dark-600;
+    @apply flex flex-col w-full h-full bg-light-500 text-dark-500 dark:bg-dark-500 dark:text-light-500;
+  }
+
+  .layout-header {
+    @apply flex justify-between items-center px-8 py-4 border-dark-500 bg-light-600 text-dark-500 dark:bg-dark-600 dark:text-light-500;
+  }
+
+  .layout-toggleDarkMode {
+    @apply p-2 rounded-xl bg-light-500 text-dark-500 duration-300 hover:bg-light-700 dark:text-light-500 dark:bg-dark-400 dark:hover:bg-dark-300; 
+  }
+
+  .layout-content {
+    @apply flex flex-col mt-7 px-8;
   }
 }

@@ -3,6 +3,7 @@ import Head from "next/head";
 import { ReactNode } from "react";
 
 import { Sidebar, Header, Content } from "./Index";
+import { useAppData } from "@/data/hooks/useAppData";
 
 interface LayoutProps {
   pageTitle: string;
@@ -12,12 +13,14 @@ interface LayoutProps {
 }
 
 export function Layout({ pageTitle, title, subtitle, children }: LayoutProps) {
+  const appData = useAppData();
+
   return (
     <>
       <Head>
         <title>{pageTitle}</title>
       </Head>
-      <main className="layout-main">
+      <main className={`layout-main ${appData.theme}`}>
         <Sidebar />
         <section className="layout-section">
           <Header title={title} subtitle={subtitle} />
