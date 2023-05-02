@@ -27,7 +27,7 @@ export function Sidebar() {
             onClick={() => console.log("LOGOUT")}
             text="Sair"
             icon={<SignOut />}
-            className="justify-self-end text-light-500 bg-accent-500 hover:bg-accent-700"
+            className="justify-self-end text-light-500 bg-accent-500 hover:bg-accent-600 hover:dark:bg-accent-600"
           />
         </Menu>
       </aside>
