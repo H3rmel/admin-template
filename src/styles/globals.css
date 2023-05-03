@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  input {
+    @apply focus-visible:outline-none;
+  }
+}
+
 @layer components {
+  /* Layout */
+
   .layout-main {
     @apply flex flex-col w-screen h-screen md:flex-row;
   }
@@ -42,4 +50,39 @@
   .layout-content {
     @apply flex flex-col my-6 px-8;
   }
+
+  /* Login */
+
+  .login-main {
+    @apply flex justify-center w-screen h-screen p-8 bg-light-500 dark:bg-dark-500 text-dark-500 dark:text-light-500;
+  }
+
+  .login-section,
+  .login-banner,
+  .login-card {
+    @apply flex flex-col;
+  }
+
+  .login-section,
+  .login-banner {
+    @apply justify-center items-center;
+  }
+
+  .login-section {
+    @apply xl:basis-5/12 gap-8;
+  }
+
+  .login-banner {
+    @apply hidden xl:flex basis-7/12 rounded-3xl bg-mesh-login bg-cover bg-center bg-fixed shadow-md;
+  }
+
+  .login-card {
+    @apply w-full xl:w-2/3 2xl:w-1/2 p-8 rounded-2xl bg-white shadow-sm;
+  }
+
+  .login-btn {
+    @apply inline-flex justify-center items-center gap-1 w-full py-1 rounded-md text-light-500 text-lg duration-300;
+  }
+
+  /* border-[1px] border-red-500 */
 }

@@ -3,6 +3,7 @@ import Head from "next/head";
 import { ReactNode } from "react";
 
 import { Sidebar, Header, Content } from "./Index";
+
 import { useAppData } from "@/data/hooks/useAppData";
 
 interface LayoutProps {

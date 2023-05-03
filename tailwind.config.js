@@ -58,6 +58,12 @@ module.exports = {
           950: "#0e191d",
         },
       },
+      backgroundImage: {
+        "mesh-login": "url('/mesh-login.png')",
+      },
+      boxShadow: {
+        "hover": "0 0 0 2px"
+      }
     },
   },
   plugins: [],
