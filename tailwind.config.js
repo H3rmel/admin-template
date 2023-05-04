@@ -62,8 +62,8 @@ module.exports = {
         "mesh-login": "url('/mesh-login.png')",
       },
       boxShadow: {
-        "hover": "0 0 0 2px"
-      }
+        hover: "0 0 0 0.125rem",
+      },
     },
   },
   plugins: [],

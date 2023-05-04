@@ -78,6 +78,24 @@ export default function Authentication() {
                 <GoogleLogo size={24} weight="bold" />
               </button>
             </form>
+            {mode === "login" ? (
+              <p>
+                Novo por aqui?{" "}
+                <button
+                  onClick={() => setMode("register")}
+                  className="login-link"
+                >
+                  Crie uma conta gratuitamente.
+                </button>
+              </p>
+            ) : (
+              <p>
+                Já faz parte do projeto?{" "}
+                <button onClick={() => setMode("login")} className="login-link">
+                  Entre por aqui.
+                </button>
+              </p>
+            )}
           </article>
         </section>
         <section className="login-banner">
