@@ -1,9 +1,13 @@
-import { Layout } from "@/layouts/Index";
+import { MainLayout } from "@/components/Index";
 
 export default function Settings() {
   return (
-    <Layout pageTitle="Configurações" title="Configurações" subtitle="Estamos construindo o template!">
+    <MainLayout
+      pageTitle="Configurações"
+      title="Configurações"
+      subtitle="Estamos construindo o template!"
+    >
       <p>Configurações</p>
-    </Layout>
+    </MainLayout>
   );
 }

@@ -2,7 +2,7 @@ import Head from "next/head";
 
 import { ReactNode } from "react";
 
-import { Sidebar, Header, Content } from "./Index";
+import { Sidebar, Header, Content } from "../../Index";
 
 import { useAppData } from "@/data/hooks/useAppData";
 
@@ -13,7 +13,12 @@ interface LayoutProps {
   children?: ReactNode;
 }
 
-export function Layout({ pageTitle, title, subtitle, children }: LayoutProps) {
+export function MainLayout({
+  pageTitle,
+  title,
+  subtitle,
+  children,
+}: LayoutProps) {
   const appData = useAppData();
 
   return (

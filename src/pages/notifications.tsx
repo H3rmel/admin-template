@@ -1,9 +1,13 @@
-import { Layout } from "@/layouts/Index";
+import { MainLayout } from "@/components/Index";
 
 export default function Notifications() {
   return (
-    <Layout pageTitle="Notificações" title="Notificações" subtitle="Estamos construindo o template!">
+    <MainLayout
+      pageTitle="Notificações"
+      title="Notificações"
+      subtitle="Estamos construindo o template!"
+    >
       <p>Notificações</p>
-    </Layout>
+    </MainLayout>
   );
 }
