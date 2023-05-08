@@ -79,7 +79,7 @@
   }
 
   .login-banner {
-    @apply hidden xl:flex basis-7/12 rounded-bl-3xl rounded-tl-3xl bg-mesh-login bg-cover bg-center bg-fixed shadow-md;
+    @apply hidden xl:flex basis-7/12 border-l-2 border-opacity-30 border-dark-500 bg-mesh-login bg-cover bg-center bg-fixed shadow-md;
   }
 
   .login-card {
