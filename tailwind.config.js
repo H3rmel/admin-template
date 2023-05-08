@@ -59,7 +59,7 @@ module.exports = {
         },
       },
       backgroundImage: {
-        "mesh-login": "url('/mesh-login.png')",
+        "prism-login": "url('/prism-login.png')",
       },
       boxShadow: {
         hover: "0 0 0 0.125rem",
