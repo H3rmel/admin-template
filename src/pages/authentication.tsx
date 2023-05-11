@@ -1,16 +1,20 @@
+//#region Imports
+
 import Image from "next/image";
 
 import { ChangeEvent, FormEvent, useState } from "react";
 
-import { LoginLayout } from "@/components/Index";
+import { LoginLayout, AuthInput, AuthChangeMode } from "@/components/Index";
 
-import { useAppData } from "@/data/hooks/useAppData";
-
-import { AuthInput } from "@/components/Auth/AuthInput";
+import { useAppData, useAuthData } from "@/data/hooks/index";
 
 import { GoogleLogo } from "@phosphor-icons/react";
 
 import toast from "react-hot-toast";
+
+//#endregion
+
+//#region Types & Imports
 
 type Mode = "login" | "register";
 
@@ -19,11 +23,16 @@ interface userInfoProps {
   password?: string;
 }
 
+//#endregion
+
 export default function Authentication() {
   const [userInfo, setUserInfo] = useState<userInfoProps>({});
   const [mode, setMode] = useState<Mode>("login");
 
   const appData = useAppData();
+  const { user, loginGoogle } = useAuthData();
+
+  //#region Methods
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -52,6 +61,8 @@ export default function Authentication() {
             },
     });
   };
+
+  //#endregion
 
   return (
     <LoginLayout pageTitle={mode === "login" ? "Entrar" : "Cadastrar"}>
@@ -90,28 +101,14 @@ export default function Authentication() {
               {mode === "login" ? "Entrar" : "Cadastrar"}
             </button>
             <hr />
-            <button className="login-btn bg-red-500 hover:bg-red-600">
+            <button
+              onClick={loginGoogle}
+              className="login-btn bg-red-500 hover:bg-red-600"
+            >
               <GoogleLogo size={24} weight="bold" />
             </button>
           </form>
-          {mode === "login" ? (
-            <p>
-              Novo por aqui?{" "}
-              <button
-                onClick={() => setMode("register")}
-                className="login-link"
-              >
-                Crie uma conta gratuitamente.
-              </button>
-            </p>
-          ) : (
-            <p>
-              Já faz parte do projeto?{" "}
-              <button onClick={() => setMode("login")} className="login-link">
-                Entre por aqui.
-              </button>
-            </p>
-          )}
+          <AuthChangeMode mode={mode} setMode={(mode) => setMode(mode)} />
         </div>
       </article>
       <article className="login-banner">

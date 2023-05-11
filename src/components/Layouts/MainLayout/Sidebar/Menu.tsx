@@ -1,14 +1,16 @@
+//#region Imports
+
 import Link from "next/link";
 
 import { ReactNode } from "react";
 
+//#endregion
+
+//#region Interfaces
+
 interface MenuProps {
   children: ReactNode;
   className?: string;
-}
-
-export function Menu({ children, className }: MenuProps) {
-  return <ul className={`layout-aside-links ${className}`}>{children}</ul>;
 }
 
 interface MenuItemProps {
@@ -17,6 +19,12 @@ interface MenuItemProps {
   icon: ReactNode;
   className?: string;
   onClick?: (e: any) => void;
+}
+
+//#endregion
+
+export function Menu({ children, className }: MenuProps) {
+  return <ul className={`layout-aside-links ${className}`}>{children}</ul>;
 }
 
 export function MenuItem({

@@ -64,6 +64,9 @@ module.exports = {
       boxShadow: {
         hover: "0 0 0 0.125rem",
       },
+      width: {
+        container: "min(100% - 2rem, 75rem)",
+      },
     },
   },
   plugins: [],

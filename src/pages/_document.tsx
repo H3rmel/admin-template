@@ -10,7 +10,7 @@ export default function Document() {
           name="description"
           content="Admin template webapp created with NextJS"
         />
-        <meta name="keywords" content="Admin, template, NextJS, Tailwind CSS" />
+        <meta name="keywords" content="Admin template, NextJS, Tailwind CSS, TypeScript" />
         <meta name="author" content="Isaac Hermel" />
         <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
       </Head>

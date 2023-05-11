@@ -37,6 +37,7 @@
   }
 
   /* Section */
+
   .layout-section {
     @apply flex flex-col-reverse md:flex-col w-full h-full bg-light-500 dark:bg-dark-500 text-dark-500 dark:text-light-500;
   }
@@ -49,6 +50,9 @@
     @apply p-2 rounded-xl bg-light-500 hover:bg-light-700 dark:bg-dark-400 text-dark-500 dark:text-light-500 dark:hover:bg-dark-300 duration-300;
   }
 
+  .layout-header-options {
+    @apply flex items-center gap-4;
+  }
   .layout-content {
     @apply flex flex-col my-6 px-8;
   }
@@ -83,7 +87,7 @@
   }
 
   .login-card {
-    @apply gap-4 w-full xl:w-2/3 2xl:w-1/2 p-8 rounded-2xl bg-white dark:bg-dark-400 shadow-md;
+    @apply gap-4 w-container xl:w-96 p-8 rounded-2xl bg-white dark:bg-dark-400 shadow-md;
   }
 
   .login-btn {

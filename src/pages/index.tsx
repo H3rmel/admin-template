@@ -1,6 +1,6 @@
 import { MainLayout } from "@/components/Index";
 
-import { useAppData } from "@/data/hooks/useAppData";
+import { useAppData } from "@/data/hooks/index";
 
 export default function Home() {
   const appData = useAppData();

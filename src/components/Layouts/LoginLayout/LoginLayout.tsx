@@ -1,3 +1,5 @@
+//#region Imports
+
 import Head from "next/head";
 
 import { ReactNode } from "react";
@@ -5,6 +7,8 @@ import { ReactNode } from "react";
 import { ToggleDarkMode } from "@/components/ToggleDarkMode/ToggleDarkMode";
 
 import { useAppData } from "@/data/hooks/useAppData";
+
+//#endregion
 
 interface LoginLayoutProps {
   pageTitle: string;

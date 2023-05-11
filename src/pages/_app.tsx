@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 
 import { Inter } from "next/font/google";
 
-import { AppProvider } from "@/data/contexts/AppContext";
+import { AppProvider, AuthProvider } from "@/data/contexts/Index";
 
 import { Toaster } from "react-hot-toast";
 
@@ -14,11 +14,13 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AppProvider>
-      <div className={`${inter.variable} font-sans`}>
-        <Toaster />
-        <Component {...pageProps} />
-      </div>
-    </AppProvider>
+    <AuthProvider>
+      <AppProvider>
+        <div className={`${inter.variable} font-sans`}>
+          <Toaster />
+          <Component {...pageProps} />
+        </div>
+      </AppProvider>
+    </AuthProvider>
   );
 }

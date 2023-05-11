@@ -1,6 +1,10 @@
+//#region Imports
+
 import { Moon, Sun } from "@phosphor-icons/react";
 
 import { useAppData } from "@/data/hooks/useAppData";
+
+//#endregion
 
 interface ToggleDarkModeProps {
   className?: string;

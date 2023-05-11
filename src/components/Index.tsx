@@ -6,3 +6,7 @@ export { Sidebar } from "./Layouts/MainLayout/Sidebar/Sidebar";
 
 // Login Layout
 export { LoginLayout } from "./Layouts/LoginLayout/LoginLayout";
+
+// Components
+export { AuthInput } from "./Auth/AuthInput";
+export { AuthChangeMode } from "./Auth/AuthChangeMode";
