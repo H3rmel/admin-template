@@ -16,6 +16,7 @@ export const sxAuthBanner: SystemStyleObject = {
   h: "100vh",
   display: { base: "none", xl: "flex" },
   backgroundImage: "/prism-login.png",
+  borderLeft: "1px solid rgba(0, 0, 0, 0.2)",
 };
 
 export const sxToggleColorMode: SystemStyleObject = {
