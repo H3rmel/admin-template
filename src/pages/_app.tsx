@@ -1,11 +1,9 @@
 import type { AppProps } from "next/app";
-import "@/styles/globals.css";
+
+import { ChakraProvider } from "@chakra-ui/react";
+import { customTheme } from "@/theme/config";
 
 import { Inter } from "next/font/google";
-
-import { AppProvider, AuthProvider } from "@/data/contexts/Index";
-
-import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,13 +12,10 @@ const inter = Inter({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <AppProvider>
-        <div className={`${inter.variable} font-sans`}>
-          <Toaster />
-          <Component {...pageProps} />
-        </div>
-      </AppProvider>
-    </AuthProvider>
+    <ChakraProvider theme={customTheme}>
+      <main className={`${inter.variable} font-sans`}>
+        <Component {...pageProps} />
+      </main>
+    </ChakraProvider>
   );
 }
