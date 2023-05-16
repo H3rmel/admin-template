@@ -2,17 +2,19 @@
 
 import { useRouter } from "next/router";
 
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import { auth } from "@/firebase/config";
 
 import {
-  User as FirebaseUser,
+  User,
   GoogleAuthProvider,
+  onIdTokenChanged,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 
-import User from "@/models/Usuario";
+import Cookies from "js-cookie";
 
 //#endregion
 
@@ -20,7 +22,8 @@ import User from "@/models/Usuario";
 
 interface AuthContextProps {
   user?: User;
-  loginGoogle?: () => Promise<void>;
+  loginWithGoogle?: () => Promise<void>;
+  logout?: () => Promise<void>;
 }
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -30,17 +33,12 @@ interface AuthProviderProps {
 
 const AuthContext = createContext<AuthContextProps>({});
 
-const normalizedUser = async (userFirebase: FirebaseUser) => {
-  const token = userFirebase.getIdToken();
-
-  return {
-    uid: userFirebase.uid,
-    name: userFirebase.displayName!,
-    email: userFirebase.email!,
-    token,
-    provider: userFirebase.providerData[0].providerId!,
-    imageUrl: userFirebase.photoURL!,
-  };
+const manageCookie = (logged: boolean) => {
+  if (logged)
+    Cookies.set("admin-template-auth", String(logged), {
+      expires: 7,
+    });
+  else Cookies.remove("admin-template-auth");
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
@@ -48,13 +46,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const router = useRouter();
 
-  const loginGoogle = async () => {
+  const configureSession = async (firebaseUser?: User) => {
+    if (firebaseUser?.email) {
+      setUser(firebaseUser);
+      manageCookie(true);
+      return firebaseUser.email;
+    } else {
+      setUser(undefined);
+      manageCookie(false);
+      return false;
+    }
+  };
+
+  const loginWithGoogle = async () => {
     try {
       const response = await signInWithPopup(auth, new GoogleAuthProvider());
 
       if (response.user?.email) {
-        const user = await normalizedUser(response.user);
-        setUser(user);
+        configureSession(response.user);
         router.push("/");
       }
     } catch (error) {
@@ -62,11 +71,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      await configureSession(undefined);
+      router.push("/authentication");
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    if (Cookies.get("admin-template-auth")) {
+      const cancel = onIdTokenChanged(auth, () => {
+        configureSession(user);
+      });
+      return () => cancel();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
         user,
-        loginGoogle,
+        loginWithGoogle,
+        logout,
       }}
     >
       {children}

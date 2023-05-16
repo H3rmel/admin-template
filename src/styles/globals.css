@@ -53,6 +53,7 @@
   .layout-header-options {
     @apply flex items-center gap-4;
   }
+  
   .layout-content {
     @apply flex flex-col my-6 px-8;
   }

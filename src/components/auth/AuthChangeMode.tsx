@@ -11,14 +11,14 @@ export function AuthChangeMode({ mode, setMode }: AuthChangeModeProps) {
   return mode === "login" ? (
     <p>
       Novo por aqui?{" "}
-      <button onClick={() => setMode("register")} className="login-link">
+      <button type="button" onClick={() => setMode("register")} className="login-link">
         Crie uma conta.
       </button>
     </p>
   ) : (
     <p>
       Já faz parte do projeto?{" "}
-      <button onClick={() => setMode("login")} className="login-link">
+      <button type="button" onClick={() => setMode("login")} className="login-link">
         Entre por aqui.
       </button>
     </p>

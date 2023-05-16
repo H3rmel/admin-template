@@ -2,11 +2,12 @@
 
 import Head from "next/head";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
-import { Sidebar, Header, Content } from "../../Index";
+import { Sidebar, Header, Content, AuthVerify } from "../../Index";
 
-import { useAppData } from "@/data/hooks/useAppData";
+import { useAppData, useAuthData } from "@/data/hooks";
+import { useRouter } from "next/router";
 
 //#endregion
 
@@ -24,6 +25,14 @@ export function MainLayout({
   children,
 }: LayoutProps) {
   const appData = useAppData();
+  const authData = useAuthData();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (authData.user?.email === null || undefined) router.push("/authentication");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

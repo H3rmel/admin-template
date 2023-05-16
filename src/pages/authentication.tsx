@@ -30,7 +30,7 @@ export default function Authentication() {
   const [mode, setMode] = useState<Mode>("login");
 
   const appData = useAppData();
-  const { user, loginGoogle } = useAuthData();
+  const { user, loginWithGoogle } = useAuthData();
 
   //#region Methods
 
@@ -102,7 +102,9 @@ export default function Authentication() {
             </button>
             <hr />
             <button
-              onClick={loginGoogle}
+              type="button"
+              onClick={loginWithGoogle}
+              title="Login with Google"
               className="login-btn bg-red-500 hover:bg-red-600"
             >
               <GoogleLogo size={24} weight="bold" />

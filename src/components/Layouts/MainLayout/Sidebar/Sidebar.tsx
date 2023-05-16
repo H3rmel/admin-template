@@ -1,3 +1,5 @@
+//#region Imports
+
 import Image from "next/image";
 
 import { Menu, MenuItem } from "./Menu";
@@ -9,8 +11,13 @@ import {
   Bell,
   SignOut,
 } from "@phosphor-icons/react";
+import { useAuthData } from "@/data/hooks";
+
+//#endregion
 
 export function Sidebar() {
+  const { logout } = useAuthData();
+
   return (
     <IconContext.Provider value={{ size: 24 }}>
       <aside className="layout-aside">
@@ -24,7 +31,7 @@ export function Sidebar() {
         </Menu>
         <Menu>
           <MenuItem
-            onClick={() => console.log("LOGOUT")}
+            onClick={logout}
             text="Sair"
             icon={<SignOut />}
             className="justify-self-end text-light-500 bg-accent-500 hover:bg-accent-600 hover:dark:bg-accent-600"

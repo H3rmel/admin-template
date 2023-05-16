@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html lang="pt">
       <Head>
-        <meta httpEquiv="Content-Type" content="text/html;charset=UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="description"

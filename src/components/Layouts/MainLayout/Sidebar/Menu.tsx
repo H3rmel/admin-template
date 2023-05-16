@@ -42,7 +42,7 @@ export function MenuItem({
           <span>{text}</span>
         </Link>
       ) : (
-        <button onClick={onClick} className={`layout-aside-link ${className}`}>
+        <button type="button" onClick={onClick} className={`layout-aside-link ${className}`}>
           {icon}
           <span>{text}</span>
         </button>

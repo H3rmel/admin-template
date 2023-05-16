@@ -10,10 +10,11 @@ export function Avatar() {
     <Link href="/profile">
       <figure>
         <Image
-          src={user?.imageUrl ?? "/avatar-placeholder.png"}
+          className="rounded-2xl"
+          src={user?.photoURL ?? "/avatar-placeholder.png"}
           width={48}
           height={48}
-          alt={`${user?.name}'s profile`}
+          alt={`${user?.displayName}'s profile`}
         />
       </figure>
     </Link>
