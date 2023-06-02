@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 
 import {
   Input,
@@ -9,25 +9,24 @@ import {
 
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 
-interface InputPasswordProps {
-  value: string;
-  setValue: Dispatch<SetStateAction<string>>;
-}
-
-export function InputPassword({ value, setValue }: InputPasswordProps) {
+export function InputPassword({
+  value,
+  valueChange,
+  required,
+}: InputPasswordProps) {
   const [show, setShow] = useState<boolean>(false);
 
-  const handleClick = () => {
-    setShow(!show);
-  };
+  const handleClick = () => setShow(!show);
 
   return (
     <InputGroup>
       <Input
         type={show ? "text" : "password"}
-        placeholder="Insira sua senha..."
+        name="password"
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        placeholder="Insira sua senha..."
+        required={required}
+        onChange={(e) => valueChange(e)}
       />
       <InputRightElement>
         <IconButton

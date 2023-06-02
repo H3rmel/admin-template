@@ -1,27 +1,39 @@
-import {
-  IconButton,
-  SystemStyleObject,
-  useColorMode,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { useMemo } from "react";
+
+import { IconButton, useColorMode, useColorModeValue } from "@chakra-ui/react";
+
 import { Moon, Sun } from "@phosphor-icons/react";
 
-interface ToggleColorModeProps {
-  sx?: SystemStyleObject;
-}
-
-export function ToggleColorMode({ sx }: ToggleColorModeProps) {
+export function ToggleColorMode({ sx, size = "md" }: ToggleColorModeProps) {
   const { colorMode, toggleColorMode } = useColorMode();
-  const color = useColorModeValue("dark.500", "light.500");
+
+  const color = useColorModeValue("accent", "primary");
+
+  const iconSize = useMemo(() => {
+    let sizeMap: Record<string, number> = {
+      lg: 28,
+      sm: 20,
+      xs: 16,
+    };
+
+    return sizeMap[size] || 24;
+  }, [size]);
 
   return (
     <IconButton
       sx={sx}
       onClick={toggleColorMode}
       aria-label="Toggle Color mode"
-      color={color}
+      colorScheme={color}
+      size={size}
       borderRadius="full"
-      icon={colorMode === "light" ? <Sun size={24} /> : <Moon size={24} />}
+      icon={
+        colorMode === "light" ? (
+          <Sun size={iconSize} />
+        ) : (
+          <Moon size={iconSize} />
+        )
+      }
     />
   );
 }

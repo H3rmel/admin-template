@@ -1,11 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
-
 import { Text, Button } from "@chakra-ui/react";
-
-interface AuthModeToggleProps {
-  mode: string;
-  setMode: Dispatch<SetStateAction<Mode>>;
-}
 
 export function AuthModeToggle({ mode, setMode }: AuthModeToggleProps) {
   return mode === "login" ? (
