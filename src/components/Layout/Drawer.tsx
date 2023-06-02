@@ -12,17 +12,22 @@ import {
   IconButton,
   Stack,
   useDisclosure,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 import { List, SignOut } from "@phosphor-icons/react";
 
 export function Drawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const color = useColorModeValue("primary", "gray");
+
   return (
     <>
       <IconButton
         aria-label="Toggle Drawer"
         onClick={onOpen}
+        colorScheme={color}
         icon={<List size={24} />}
       />
       <ChakraDrawer isOpen={isOpen} placement="left" onClose={onClose}>

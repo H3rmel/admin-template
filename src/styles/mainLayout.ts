@@ -10,7 +10,6 @@ export const sxLayoutBox: SystemStyleObject = {
 export const sxLayoutNavbarStack: SystemStyleObject = {
   px: 8,
   py: 4,
-  bg: "dark.600",
   boxShadow: "md",
 };
 

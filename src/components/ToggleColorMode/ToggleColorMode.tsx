@@ -7,7 +7,7 @@ import { Moon, Sun } from "@phosphor-icons/react";
 export function ToggleColorMode({ sx, size = "md" }: ToggleColorModeProps) {
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const color = useColorModeValue("accent", "primary");
+  const color = useColorModeValue("primary", "gray");
 
   const iconSize = useMemo(() => {
     let sizeMap: Record<string, number> = {
@@ -23,8 +23,8 @@ export function ToggleColorMode({ sx, size = "md" }: ToggleColorModeProps) {
     <IconButton
       sx={sx}
       onClick={toggleColorMode}
-      aria-label="Toggle Color mode"
       colorScheme={color}
+      aria-label="Toggle Color mode"
       size={size}
       borderRadius="full"
       icon={

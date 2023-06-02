@@ -1,4 +1,4 @@
-import {default as NextLink} from "next/link";
+import { default as NextLink } from "next/link";
 
 import { ToggleColorMode, Drawer } from "../Index";
 
@@ -10,17 +10,20 @@ import {
   MenuItem,
   Avatar,
   MenuButton,
-  Link
+  Link,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
 import { SignOut } from "@phosphor-icons/react";
 
 export function Navbar({ sxStack, sxContainer }: NavbarLayoutProps) {
+  const bgColor = useColorModeValue("primary.700", "dark.600");
+
   return (
-    <HStack sx={sxStack}>
+    <HStack sx={sxStack} bgColor={bgColor}>
       <Container sx={sxContainer}>
         <Drawer />
-        <HStack>
+        <HStack gap="2">
           <ToggleColorMode size="sm" />
           <Menu>
             <MenuButton>
@@ -32,7 +35,9 @@ export function Navbar({ sxStack, sxContainer }: NavbarLayoutProps) {
             </MenuButton>
             <MenuList>
               <MenuItem>
-                <Link as={NextLink} w="100%" href="/profile">Perfil</Link>
+                <Link as={NextLink} w="100%" href="/profile">
+                  Perfil
+                </Link>
               </MenuItem>
               <MenuItem gap="2">
                 Sair <SignOut weight="bold" size={16} />
