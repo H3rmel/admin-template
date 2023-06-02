@@ -20,7 +20,7 @@ export function Navbar({ sxStack, sxContainer }: NavbarLayoutProps) {
   const bgColor = useColorModeValue("primary.700", "dark.600");
 
   return (
-    <HStack sx={sxStack} bgColor={bgColor}>
+    <HStack sx={sxStack} color="white" bgColor={bgColor}>
       <Container sx={sxContainer}>
         <Drawer />
         <HStack gap="2">
