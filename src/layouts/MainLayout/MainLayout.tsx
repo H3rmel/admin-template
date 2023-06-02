@@ -10,7 +10,7 @@ import {
   sxLayoutNavbarContainer,
 } from "@/styles/mainLayout";
 
-export function MainLayout({ title, subtitle, children }: MainLayoutProps) {
+export function MainLayout({ title, children }: MainLayoutProps) {
   const color = useColorModeValue("light.500", "dark.500");
 
   return (
@@ -23,7 +23,7 @@ export function MainLayout({ title, subtitle, children }: MainLayoutProps) {
           sxStack={sxLayoutNavbarStack}
           sxContainer={sxLayoutNavbarContainer}
         />
-        {children}
+        <Box p={8}>{children}</Box>
       </Box>
     </>
   );

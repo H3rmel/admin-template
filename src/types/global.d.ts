@@ -25,7 +25,6 @@ declare global {
 
   interface MainLayoutProps {
     title: string;
-    subtitle: string;
     children?: React.ReactNode;
   }
 

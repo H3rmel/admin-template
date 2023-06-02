@@ -1,7 +1,5 @@
 import { default as NextLink } from "next/link";
 
-import { ToggleColorMode, Drawer } from "../Index";
-
 import {
   HStack,
   Container,
@@ -15,6 +13,8 @@ import {
 } from "@chakra-ui/react";
 
 import { SignOut } from "@phosphor-icons/react";
+
+import { ToggleColorMode, Drawer } from "../Index";
 
 export function Navbar({ sxStack, sxContainer }: NavbarLayoutProps) {
   const bgColor = useColorModeValue("primary.700", "dark.600");
