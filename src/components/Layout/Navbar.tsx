@@ -1,4 +1,8 @@
+//#region Imports
+
 import { default as NextLink } from "next/link";
+
+import { ToggleColorMode, Drawer } from "../Index";
 
 import {
   HStack,
@@ -10,17 +14,49 @@ import {
   MenuButton,
   Link,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 
 import { SignOut } from "@phosphor-icons/react";
 
-import { ToggleColorMode, Drawer } from "../Index";
+import { getAuth } from "firebase/auth";
 
-export function Navbar({ sxStack, sxContainer }: NavbarLayoutProps) {
+//#endregion
+
+export function Navbar({ sxStack, sxContainer, userInfo }: NavbarLayoutProps) {
+  const color = useColorModeValue("dark.500", "light.500");
   const bgColor = useColorModeValue("primary.700", "dark.600");
 
+  const toast = useToast();
+
+  //* Sign Out
+  const auth = getAuth();
+
+  const signOut = async () => {
+    try {
+      await auth.signOut();
+
+      toast({
+        title: "Desconectando...",
+        status: "info",
+        isClosable: true,
+        duration: 3000,
+        position: "top",
+      });
+    } catch (error) {
+      toast({
+        title: `Erro!`,
+        description: `Um erro ocorreu! Informações: ${error}`,
+        status: "error",
+        isClosable: true,
+        duration: 3000,
+        position: "top",
+      });
+    }
+  };
+
   return (
-    <HStack sx={sxStack} color="white" bgColor={bgColor}>
+    <HStack sx={sxStack} color={color} bgColor={bgColor}>
       <Container sx={sxContainer}>
         <Drawer />
         <HStack gap="2">
@@ -29,9 +65,17 @@ export function Navbar({ sxStack, sxContainer }: NavbarLayoutProps) {
             <MenuButton>
               <Avatar
                 size="md"
-                name="John Doe"
-                src="./avatar-placeholder.png"
-              ></Avatar>
+                name={
+                  userInfo?.displayName !== null
+                    ? userInfo?.displayName
+                    : "John Doe"
+                }
+                src={
+                  userInfo?.photoURL !== null
+                    ? userInfo?.photoURL
+                    : "./avatar-placeholder.png"
+                }
+              />
             </MenuButton>
             <MenuList>
               <MenuItem>
@@ -39,7 +83,7 @@ export function Navbar({ sxStack, sxContainer }: NavbarLayoutProps) {
                   Perfil
                 </Link>
               </MenuItem>
-              <MenuItem gap="2">
+              <MenuItem gap="2" onClick={signOut}>
                 Sair <SignOut weight="bold" size={16} />
               </MenuItem>
             </MenuList>

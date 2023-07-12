@@ -1,3 +1,5 @@
+//# region Imports
+
 import { useState } from "react";
 
 import {
@@ -8,6 +10,8 @@ import {
 } from "@chakra-ui/react";
 
 import { Eye, EyeSlash } from "@phosphor-icons/react";
+
+//#endregion
 
 export function InputPassword({
   value,

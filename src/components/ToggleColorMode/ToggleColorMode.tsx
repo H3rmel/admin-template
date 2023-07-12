@@ -1,8 +1,12 @@
+//#region Imports
+
 import { useMemo } from "react";
 
 import { IconButton, useColorMode, useColorModeValue } from "@chakra-ui/react";
 
 import { Moon, Sun } from "@phosphor-icons/react";
+
+//#endregion
 
 export function ToggleColorMode({ sx, size = "md" }: ToggleColorModeProps) {
   const { colorMode, toggleColorMode } = useColorMode();

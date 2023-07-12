@@ -1,5 +1,7 @@
 import { SystemStyleObject } from "@chakra-ui/react";
 
+import { User as FirebaseUser } from "firebase/auth";
+
 export {};
 
 declare global {
@@ -31,6 +33,7 @@ declare global {
   interface NavbarLayoutProps {
     sxStack?: SystemStyleObject;
     sxContainer?: SystemStyleObject;
+    userInfo?: FirebaseUser | null;
   }
 
   //*

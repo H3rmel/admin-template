@@ -1,3 +1,5 @@
+//#region Imports
+
 import Link from "next/link";
 
 import {
@@ -16,6 +18,8 @@ import {
 } from "@chakra-ui/react";
 
 import { List, SignOut } from "@phosphor-icons/react";
+
+//#endregion
 
 export function Drawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
