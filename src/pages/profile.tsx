@@ -44,7 +44,6 @@ export default function Profile() {
             <Heading>{user?.displayName}</Heading>
           </Flex>
         </CardHeader>
-        <Divider />
         <CardBody>
           <Text fontSize="lg" gap={4}>
             <strong>E-mail:</strong>{" "}

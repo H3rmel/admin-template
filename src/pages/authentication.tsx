@@ -41,7 +41,12 @@ import {
 
 import { initFirebase } from "@/firebase/firebaseApp";
 
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -62,7 +67,7 @@ export default function Authentication() {
     setUser({ ...user, [name]: value });
   };
 
-  //* Google Authentication Code
+  //* Authentication Code
   initFirebase();
 
   const provider = new GoogleAuthProvider();
@@ -73,6 +78,7 @@ export default function Authentication() {
     router.push("/");
   }
 
+  //* With Google
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, provider);
@@ -93,6 +99,32 @@ export default function Authentication() {
         duration: 3000,
         position: "bottom-left",
       });
+    }
+  };
+
+  //* With Email & Password
+  const signInWithCredentials = async () => {
+    if (user.email !== "" || user.password !== "") {
+      try {
+        await signInWithEmailAndPassword(auth, user.email!, user.password!);
+
+        toast({
+          title: "Logado com sucesso!",
+          status: "success",
+          isClosable: true,
+          duration: 3000,
+          position: "bottom-left",
+        });
+      } catch (error) {
+        toast({
+          title: `Erro!`,
+          description: `Um erro ocorreu! Informações: ${error}`,
+          status: "error",
+          isClosable: true,
+          duration: 3000,
+          position: "bottom-left",
+        });
+      }
     }
   };
 
@@ -136,10 +168,13 @@ export default function Authentication() {
             <Divider borderColor={color} />
             <CardFooter flexDirection="column" gap={4}>
               <HStack gap={4}>
-                <Button w="50%" colorScheme="primary">
+                <Button
+                  w="50%"
+                  colorScheme="primary"
+                  onClick={signInWithCredentials}
+                >
                   {mode === "login" ? "Entrar" : "Cadastrar"}
                 </Button>
-                {/* On Click here */}
                 <Button w="50%" colorScheme="red" onClick={signInWithGoogle}>
                   <GoogleLogo size={24} weight="bold" />
                 </Button>
