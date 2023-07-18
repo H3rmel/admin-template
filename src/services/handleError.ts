@@ -1,7 +1,7 @@
-import { errors } from "@/constants/error.json";
+import { firebaseErrors } from "@/constants/errors.json";
 
 const handleErrorCode = (e: string) => {
-  const message = errors.find((error) => error.code === e);
+  const message = firebaseErrors.find((error: any) => error.code === e);
   return message?.meaning;
 };
 

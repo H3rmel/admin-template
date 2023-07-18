@@ -1,5 +1,5 @@
 {
-  "errors": [
+  "firebaseErrors": [
     {
       "code": "auth/email-already-exists",
       "meaning": "O e-mail fornecido já esta em uso por outro usuário!"
