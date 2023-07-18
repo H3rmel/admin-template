@@ -15,9 +15,12 @@ import {
   Stack,
   useDisclosure,
   useColorModeValue,
+  useToast,
 } from "@chakra-ui/react";
 
 import { List, SignOut } from "@phosphor-icons/react";
+
+import { getAuth } from "firebase/auth";
 
 //#endregion
 
@@ -25,6 +28,28 @@ export function Drawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const color = useColorModeValue("primary", "gray");
+
+  const toast = useToast();
+
+  //* Sign out
+  const auth = getAuth();
+
+  const signOut = async () => {
+    try {
+      await auth.signOut();
+
+      toast({
+        title: "Desconectando...",
+        status: "info",
+      });
+    } catch (error) {
+      toast({
+        title: "Erro!",
+        description: `Um erro ocorreu! Informações: ${error}`,
+        status: "error",
+      });
+    }
+  };
 
   return (
     <>
@@ -53,7 +78,7 @@ export function Drawer() {
             </Stack>
           </DrawerBody>
           <DrawerFooter>
-            <Button colorScheme="red" gap="2">
+            <Button colorScheme="red" gap="2" onClick={signOut}>
               Sair <SignOut weight="bold" size={18} />
             </Button>
           </DrawerFooter>

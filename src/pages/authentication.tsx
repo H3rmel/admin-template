@@ -87,9 +87,6 @@ export default function Authentication() {
       toast({
         title: "Logado com sucesso!",
         status: "success",
-        isClosable: true,
-        duration: 3000,
-        position: "bottom-left",
       });
     } catch (error: any) {
       toast({
@@ -98,9 +95,6 @@ export default function Authentication() {
           error.code
         )}`,
         status: "error",
-        isClosable: true,
-        duration: 3000,
-        position: "bottom-left",
       });
     }
   };
@@ -112,9 +106,6 @@ export default function Authentication() {
       toast({
         title: "Logado com sucesso!",
         status: "success",
-        isClosable: true,
-        duration: 3000,
-        position: "bottom-left",
       });
     } catch (error: any) {
       toast({
@@ -123,9 +114,6 @@ export default function Authentication() {
           error.code
         )}`,
         status: "error",
-        isClosable: true,
-        duration: 3000,
-        position: "bottom-left",
       });
     }
   };

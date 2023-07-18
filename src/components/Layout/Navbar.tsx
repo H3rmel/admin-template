@@ -39,18 +39,12 @@ export function Navbar({ sxStack, sxContainer, userInfo }: NavbarLayoutProps) {
       toast({
         title: "Desconectando...",
         status: "info",
-        isClosable: true,
-        duration: 3000,
-        position: "top",
       });
     } catch (error) {
       toast({
         title: `Erro!`,
         description: `Um erro ocorreu! Informações: ${error}`,
         status: "error",
-        isClosable: true,
-        duration: 3000,
-        position: "top",
       });
     }
   };

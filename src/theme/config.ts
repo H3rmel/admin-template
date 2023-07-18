@@ -1,4 +1,4 @@
-import { extendTheme } from "@chakra-ui/react";
+import { ToastProviderProps, extendTheme } from "@chakra-ui/react";
 
 export const customTheme = extendTheme({
   initialColorMode: "dark",
@@ -61,3 +61,11 @@ export const customTheme = extendTheme({
     container: "min(100% - 2rem, 75rem)",
   },
 });
+
+export const toastConfig: ToastProviderProps = {
+  defaultOptions: {
+    position: "top",
+    duration: 3000,
+    isClosable: true,
+  },
+};
