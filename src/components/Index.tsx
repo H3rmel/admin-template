@@ -1,12 +1,10 @@
-// Main Layout
-export { MainLayout } from "./Layouts/MainLayout/MainLayout";
-export { Content } from "./Layouts/MainLayout/Content";
-export { Header } from "./Layouts/MainLayout/Header";
-export { Sidebar } from "./Layouts/MainLayout/Sidebar/Sidebar";
+// Layout Parts
+export { Navbar } from "./Layout/Navbar";
+export { Drawer } from "./Layout/Drawer";
 
-// Login Layout
-export { LoginLayout } from "./Layouts/LoginLayout/LoginLayout";
+// Forms
+export { InputPassword } from "./InputPassword/InputPassword";
 
-// Auth
-export { AuthInput } from "./Auth/AuthInput";
-export { AuthChangeMode } from "./Auth/AuthChangeMode";
+// Togglers
+export { AuthModeToggle } from "./AuthModeToggle/AuthModeToggle";
+export { ToggleColorMode } from "./ToggleColorMode/ToggleColorMode";

@@ -1,123 +1,189 @@
 //#region Imports
 
+import { ChangeEvent, useEffect, useState } from "react";
+
+import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
-import { ChangeEvent, FormEvent, useState } from "react";
-
-import { LoginLayout, AuthInput, AuthChangeMode } from "@/components/Index";
-
-import { useAppData, useAuthData } from "@/data/hooks/index";
+import {
+  Card,
+  CardBody,
+  Center,
+  Flex,
+  useColorModeValue,
+  Heading,
+  Input,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Button,
+  Divider,
+  CardFooter,
+  HStack,
+  useToast,
+} from "@chakra-ui/react";
 
 import { GoogleLogo } from "@phosphor-icons/react";
 
-import toast from "react-hot-toast";
+import {
+  InputPassword,
+  AuthModeToggle,
+  ToggleColorMode,
+} from "@/components/Index";
 
-//#endregion
+import {
+  sxAuthPage,
+  sxAuthLogin,
+  sxAuthBanner,
+  sxToggleColorMode,
+} from "@/styles/authentication";
 
-//#region Types & Imports
+import { initFirebase } from "@/firebase/firebaseApp";
 
-type Mode = "login" | "register";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
-interface userInfoProps {
-  email?: string;
-  password?: string;
-}
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import { handleErrorCode } from "@/services/handleError";
 
 //#endregion
 
 export default function Authentication() {
-  const [userInfo, setUserInfo] = useState<userInfoProps>({});
   const [mode, setMode] = useState<Mode>("login");
+  const [user, setUser] = useState<User>({});
 
-  const appData = useAppData();
-  const { user, loginWithGoogle } = useAuthData();
+  const router = useRouter();
 
-  //#region Methods
+  const color = useColorModeValue("light.500", "dark.500");
+  const toast = useToast();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  useEffect(() => {
+    initFirebase();
+  }, []);
 
-    setUserInfo({ ...userInfo, [name]: value });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    console.log(mode);
+  //* Authentication
+  const auth = getAuth();
+  const [userAuth] = useAuthState(auth);
+
+  useEffect(() => {
+    if (userAuth) router.push("/");
+  }, [userAuth, router]);
+
+  //* Google
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, new GoogleAuthProvider());
+      toast({
+        title: "Logado com sucesso!",
+        status: "success",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Erro!",
+        description: `Um erro ocorreu! Informações: ${handleErrorCode(
+          error.code
+        )}`,
+        status: "error",
+      });
+    }
   };
 
-  const handleError = (message: string, timeout: number = 5000) => {
-    toast.error(message, {
-      position: "bottom-center",
-      duration: timeout,
-      style:
-        appData.theme === "dark"
-          ? {
-              color: "#eceff1",
-              background: "#16272e",
-            }
-          : {
-              color: "#1c313a",
-              background: "#bdbfc1",
-            },
-    });
+  //* Credentials
+  const signInWithCredentials = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, user.email!, user.password!);
+      toast({
+        title: "Logado com sucesso!",
+        status: "success",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Erro!",
+        description: `Um erro ocorreu! Informações: ${handleErrorCode(
+          error.code
+        )}`,
+        status: "error",
+      });
+    }
   };
 
-  //#endregion
+  const getTitle = () => {
+    return mode === "login" ? "Bem-vindo de volta!" : "Crie sua conta!";
+  };
 
   return (
-    <LoginLayout pageTitle={mode === "login" ? "Entrar" : "Cadastrar"}>
-      <article className="login-article">
-        <h1 className="text-4xl font-semibold text-center">
-          {mode === "login" ? "Bem-vindo de volta!" : "Crie sua conta!"}
-        </h1>
-        <div className="login-card">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            <AuthInput
-              label="E-mail"
-              type="email"
-              required
-              value={userInfo.email}
-              valueChange={handleChange}
-            />
-            <AuthInput
-              label="Senha"
-              type="password"
-              required
-              value={userInfo.password}
-              valueChange={handleChange}
-            />
-            <AuthInput
-              label="Confirmar senha"
-              type="password"
-              required
-              value={userInfo.password}
-              valueChange={handleChange}
-              render={mode !== "login"}
-            />
-            <button
-              type="submit"
-              className="login-btn bg-primary-500 hover:bg-primary-600"
-            >
-              {mode === "login" ? "Entrar" : "Cadastrar"}
-            </button>
-            <hr />
-            <button
-              type="button"
-              onClick={loginWithGoogle}
-              title="Login with Google"
-              className="login-btn bg-red-500 hover:bg-red-600"
-            >
-              <GoogleLogo size={24} weight="bold" />
-            </button>
-          </form>
-          <AuthChangeMode mode={mode} setMode={(mode) => setMode(mode)} />
-        </div>
-      </article>
-      <article className="login-banner">
-        <figure>
-          <Image src="/logo.svg" width={128} height={128} alt="H3's logo" />
-        </figure>
-      </article>
-    </LoginLayout>
+    <>
+      <Head>
+        <title>{getTitle()}</title>
+      </Head>
+      <Flex sx={sxAuthPage} color={color} bgColor={color!}>
+        <ToggleColorMode sx={sxToggleColorMode} />
+        <Center sx={sxAuthLogin}>
+          <Card w="md">
+            <CardBody>
+              <Heading mb={4} textAlign="center">
+                {getTitle()}
+              </Heading>
+              <FormControl>
+                <FormLabel>E-mail:</FormLabel>
+                <Input
+                  type="email"
+                  name="email"
+                  value={user?.email}
+                  placeholder="Insira seu e-mail..."
+                  required
+                  onChange={handleChange}
+                />
+                <FormHelperText />
+              </FormControl>
+              <FormControl>
+                <FormLabel>Senha</FormLabel>
+                <InputPassword
+                  value={user?.password}
+                  required
+                  valueChange={handleChange}
+                />
+                <FormHelperText />
+              </FormControl>
+            </CardBody>
+            <Divider borderColor={color} />
+            <CardFooter flexDirection="column" gap={4}>
+              <HStack gap={4}>
+                <Button
+                  w="50%"
+                  colorScheme="primary"
+                  onClick={signInWithCredentials}
+                >
+                  {mode === "login" ? "Entrar" : "Cadastrar"}
+                </Button>
+                <Button w="50%" colorScheme="red" onClick={signInWithGoogle}>
+                  <GoogleLogo size={24} weight="bold" />
+                </Button>
+              </HStack>
+              <AuthModeToggle mode={mode} setMode={setMode} />
+            </CardFooter>
+          </Card>
+        </Center>
+        <Center sx={sxAuthBanner}>
+          <Image
+            src="/logo.svg"
+            alt="Admin template's logo"
+            width={128}
+            height={128}
+          />
+        </Center>
+      </Flex>
+    </>
   );
 }

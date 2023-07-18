@@ -16,8 +16,14 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*", "./src/data/*"]
-    }
+    },
+    "typeRoots": ["./src/types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/scripts/darkMode.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/scripts/darkMode.js"
+  ],
   "exclude": ["node_modules"]
 }

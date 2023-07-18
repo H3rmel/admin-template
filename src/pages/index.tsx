@@ -1,18 +1,19 @@
-import { MainLayout } from "@/components/Index";
+//# region Imports
 
-import { useAppData } from "@/data/hooks/index";
+import { MainLayout } from "@/layouts/Index";
+
+import { Text } from "@chakra-ui/react";
+
+//#endregion
 
 export default function Home() {
-  const appData = useAppData();
-
   return (
-    <MainLayout
-      pageTitle="Home"
-      title="Página Inicial"
-      subtitle="Estamos construindo o template!"
-    >
-      <h3>{appData.theme}</h3>
-      <p>Home</p>
+    <MainLayout title="Home">
+      <Text>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia
+        voluptates doloremque quidem aliquam accusamus fuga minus eligendi nulla
+        quam quaerat!
+      </Text>
     </MainLayout>
   );
 }
