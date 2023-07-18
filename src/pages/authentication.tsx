@@ -1,6 +1,6 @@
 //#region Imports
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
@@ -50,6 +50,8 @@ import {
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
+import { handleErrorCode } from "@/services/handleError";
+
 //#endregion
 
 export default function Authentication() {
@@ -61,28 +63,27 @@ export default function Authentication() {
   const color = useColorModeValue("light.500", "dark.500");
   const toast = useToast();
 
-  //* Handle all inputs changes
+  useEffect(() => {
+    initFirebase();
+  }, []);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
 
-  //* Authentication Code
-  initFirebase();
-
-  const provider = new GoogleAuthProvider();
+  //* Authentication
   const auth = getAuth();
   const [userAuth] = useAuthState(auth);
 
-  if (userAuth) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (userAuth) router.push("/");
+  }, [userAuth, router]);
 
-  //* With Google
+  //* Google
   const signInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, provider);
-
+      await signInWithPopup(auth, new GoogleAuthProvider());
       toast({
         title: "Logado com sucesso!",
         status: "success",
@@ -90,10 +91,12 @@ export default function Authentication() {
         duration: 3000,
         position: "bottom-left",
       });
-    } catch (error) {
+    } catch (error: any) {
       toast({
-        title: `Erro!`,
-        description: `Um erro ocorreu! Informações: ${error}`,
+        title: "Erro!",
+        description: `Um erro ocorreu! Informações: ${handleErrorCode(
+          error.code
+        )}`,
         status: "error",
         isClosable: true,
         duration: 3000,
@@ -102,38 +105,39 @@ export default function Authentication() {
     }
   };
 
-  //* With Email & Password
+  //* Credentials
   const signInWithCredentials = async () => {
-    if (user.email !== "" || user.password !== "") {
-      try {
-        await signInWithEmailAndPassword(auth, user.email!, user.password!);
-
-        toast({
-          title: "Logado com sucesso!",
-          status: "success",
-          isClosable: true,
-          duration: 3000,
-          position: "bottom-left",
-        });
-      } catch (error) {
-        toast({
-          title: `Erro!`,
-          description: `Um erro ocorreu! Informações: ${error}`,
-          status: "error",
-          isClosable: true,
-          duration: 3000,
-          position: "bottom-left",
-        });
-      }
+    try {
+      await signInWithEmailAndPassword(auth, user.email!, user.password!);
+      toast({
+        title: "Logado com sucesso!",
+        status: "success",
+        isClosable: true,
+        duration: 3000,
+        position: "bottom-left",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Erro!",
+        description: `Um erro ocorreu! Informações: ${handleErrorCode(
+          error.code
+        )}`,
+        status: "error",
+        isClosable: true,
+        duration: 3000,
+        position: "bottom-left",
+      });
     }
+  };
+
+  const getTitle = () => {
+    return mode === "login" ? "Bem-vindo de volta!" : "Crie sua conta!";
   };
 
   return (
     <>
       <Head>
-        <title>
-          {mode === "login" ? "Bem-vindo de volta!" : "Crie sua conta!"}
-        </title>
+        <title>{getTitle()}</title>
       </Head>
       <Flex sx={sxAuthPage} color={color} bgColor={color!}>
         <ToggleColorMode sx={sxToggleColorMode} />
@@ -141,7 +145,7 @@ export default function Authentication() {
           <Card w="md">
             <CardBody>
               <Heading mb={4} textAlign="center">
-                {mode === "login" ? "Bem-vindo de volta!" : "Crie sua conta!"}
+                {getTitle()}
               </Heading>
               <FormControl>
                 <FormLabel>E-mail:</FormLabel>
