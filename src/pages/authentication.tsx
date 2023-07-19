@@ -63,16 +63,14 @@ export default function Authentication() {
   const color = useColorModeValue("light.500", "dark.500");
   const toast = useToast();
 
-  useEffect(() => {
-    initFirebase();
-  }, []);
-
+  
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
-
+  
   //* Authentication
+  initFirebase();
   const auth = getAuth();
   const [userAuth] = useAuthState(auth);
 
